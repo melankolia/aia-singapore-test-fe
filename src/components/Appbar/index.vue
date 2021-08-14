@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app>
+  <v-app-bar app dark flat>
     <div class="d-flex align-center">
       <v-img
         alt="Flickr Logo"
@@ -7,7 +7,7 @@
         contain
         :src="require('../../assets/images/flickr.png')"
         transition="scale-transition"
-        width="60"
+        width="70"
       />
     </div>
   </v-app-bar>

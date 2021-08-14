@@ -1,19 +1,9 @@
 <template>
   <div>
     <Appbar />
-    <div class="mx-4">
-      <div
-        class="
-          d-flex
-          flex-row
-          justify-space-between
-          header
-          my-6
-          pa-3
-          rounded-lg
-        "
-      >
-        <div style="width: 288px">
+    <div class="d-flex flex-row justify-space-between header pa-6 rounded-lg">
+      <v-row no-gutters>
+        <v-col class="mb-6" cols="12" xs="12" sm="10">
           <v-text-field
             v-model="search"
             prepend-inner-icon="mdi-magnify"
@@ -23,8 +13,8 @@
             dense
             class="rounded-lg"
           ></v-text-field>
-        </div>
-        <div style="width: 150px">
+        </v-col>
+        <v-col cols="12" xs="12" sm="2">
           <v-select
             v-model="sortBy"
             :items="itemSortBy"
@@ -48,8 +38,11 @@
               </p>
             </template>
           </v-select>
-        </div>
-      </div>
+        </v-col>
+      </v-row>
+    </div>
+    <div class="px-4 pt-4">
+      <p class="mb-0">Everyone's photos</p>
     </div>
   </div>
 </template>
