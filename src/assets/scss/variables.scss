@@ -1,0 +1,29 @@
+$body-font-family: "Poppins";
+$font-family: "Poppins";
+
+.v-application {
+  [class*="text-"] {
+    font-family: $font-family, sans-serif !important;
+  }
+  font-family: $font-family, sans-serif !important;
+}
+
+.outlined-custom {
+  border: 1px solid #d9dbe9;
+}
+
+.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat)
+  > .v-input__control
+  > .v-input__slot {
+  box-shadow: none !important;
+}
+
+.v-menu__content.theme--light.menuable__content__active {
+  box-shadow: none !important;
+  border: 1px solid #d9dbe9;
+}
+
+.date-text {
+  font-size: 8pt !important;
+  font-weight: bold;
+}

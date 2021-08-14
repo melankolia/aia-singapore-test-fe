@@ -3,6 +3,12 @@ import App from "./App.vue";
 import router from "./router";
 import vuetify from "./plugins/vuetify";
 
+// Filter
+import "@/filter/case.filter";
+
+// Mixin
+import "@/mixin";
+
 Vue.config.productionTip = false;
 
 new Vue({
