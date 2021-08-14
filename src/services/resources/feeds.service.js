@@ -2,8 +2,11 @@ import MainInstance from "../main.instance";
 import { FEEDS } from "../constants";
 
 const MainService = {
-  getList(params) {
-    return MainInstance.query(FEEDS, { params });
+  getList(params, token) {
+    return MainInstance.query(FEEDS, { params, ...token });
+  },
+  cancelReq() {
+    return MainInstance.cancelRequest();
   },
 };
 

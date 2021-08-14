@@ -16,6 +16,8 @@
         </v-col>
         <v-col cols="12" xs="12" sm="4" md="2">
           <v-select
+            v-model="sortBy"
+            :items="itemsSortBy"
             placeholder="Sort By"
             solo
             hide-details
@@ -27,9 +29,6 @@
           >
             <template #item="{ item }">
               <p class="selection-item ma-0">
-                <v-icon small class="mr-3">
-                  {{ item.icon }}
-                </v-icon>
                 <span>
                   {{ item.text }}
                 </span>
@@ -79,7 +78,7 @@
 const Appbar = () => import("@/components/Appbar");
 const Cards = () => import("@/components/Cards");
 const ContentNotFound = () => import("@/components/Content/NotFound");
-import MainServer from "@/services/resources/feeds.service";
+import MainService from "@/services/resources/feeds.service";
 
 export default {
   components: {
@@ -94,15 +93,33 @@ export default {
       modifiedDate: "-",
       items: [],
       tags: null,
+
+      // SortBy Properties
+      itemsSortBy: [
+        {
+          text: "ASC Author",
+          value: "ASC",
+        },
+        {
+          text: "DESC Author",
+          value: "DESC",
+        },
+      ],
+      sortBy: "ASC",
     };
   },
   methods: {
     getList() {
       this.loading = true;
       this.items = [];
-      MainServer.getList({
-        tags: this.tags,
-      })
+      this.createToken(MainService.cancelReq().source());
+      MainService.getList(
+        {
+          tags: this.tags,
+          limit: 4,
+        },
+        { cancelToken: this.cancelRequest.token }
+      )
         .then(({ data: { result, message } }) => {
           if (message == "OK") {
             this.title = result.title;
@@ -130,7 +147,12 @@ export default {
   watch: {
     tags: {
       handler(val) {
-        val && val.length > 2 && this.getList();
+        val && val.length > 2 && this.fetchListDebounce(this.getList);
+      },
+    },
+    sortBy: {
+      handler(val) {
+        val && this.getList();
       },
     },
   },

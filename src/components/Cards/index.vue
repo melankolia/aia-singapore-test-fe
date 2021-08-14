@@ -13,15 +13,17 @@
     <v-card-text v-if="descriptionAvailable">
       <div v-html="data.description[2]"></div>
     </v-card-text>
-    <v-divider class="mx-4"></v-divider>
-    <v-card-text v-if="tagsAvailable">
-      <div>Tag's</div>
-      <v-chip-group active-class="primary white--text" column>
-        <v-chip small v-for="(tag, i) in data.tags" :key="i">{{
-          tag | toTitle
-        }}</v-chip>
-      </v-chip-group>
-    </v-card-text>
+    <template v-if="tagsAvailable">
+      <v-divider class="mx-4"></v-divider>
+      <v-card-text>
+        <div>Tag's</div>
+        <v-chip-group active-class="primary white--text" column>
+          <v-chip small v-for="(tag, i) in data.tags" :key="i">{{
+            tag | toTitle
+          }}</v-chip>
+        </v-chip-group>
+      </v-card-text>
+    </template>
   </v-card>
 </template>
 

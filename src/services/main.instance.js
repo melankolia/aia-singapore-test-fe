@@ -4,7 +4,10 @@ const instance = axios.create({
   baseURL: process.env.VUE_APP_BASE_URL,
 });
 
-const AuthInstance = {
+instance.CancelToken = axios.CancelToken;
+instance.isCancel = axios.isCancel;
+
+const MainInstance = {
   async query(resource, params) {
     return instance.get(resource, params);
   },
@@ -40,6 +43,10 @@ const AuthInstance = {
   async deleteSlug(resource, slug, config) {
     return instance.delete(`${resource}/${slug}`, config);
   },
+
+  cancelRequest() {
+    return instance.CancelToken;
+  },
 };
 
-export default AuthInstance;
+export default MainInstance;
