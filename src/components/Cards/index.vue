@@ -1,5 +1,5 @@
 <template>
-  <v-card :loading="loading" class="mx-auto my-12" max-width="374">
+  <v-card :loading="loading" class="mx-auto my-6" max-width="374">
     <v-img
       height="250"
       src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
@@ -13,18 +13,19 @@
     </v-card-text>
     <v-divider class="mx-4"></v-divider>
     <v-card-text>
+      <div>Tag's</div>
       <v-chip-group
         v-model="selection"
-        active-class="deep-purple accent-4 white--text"
+        active-class="primary white--text"
         column
       >
-        <v-chip>5:30PM</v-chip>
+        <v-chip small>5:30PM</v-chip>
 
-        <v-chip>7:30PM</v-chip>
+        <v-chip small>7:30PM</v-chip>
 
-        <v-chip>8:00PM</v-chip>
+        <v-chip small>8:00PM</v-chip>
 
-        <v-chip>9:00PM</v-chip>
+        <v-chip small>9:00PM</v-chip>
       </v-chip-group>
     </v-card-text>
   </v-card>

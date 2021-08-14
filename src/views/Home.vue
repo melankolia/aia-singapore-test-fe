@@ -42,19 +42,22 @@
       </v-row>
     </div>
     <div class="px-4 pt-4">
-      <p class="mb-0">Everyone's photos</p>
+      <p class="mb-0 text-subtitle-2">Everyone's photos</p>
+      <p class="mb-0 font-weight-bold">Saturday, August 14, 2021</p>
+      <v-divider class="mt-2" />
+      <Cards />
     </div>
   </div>
 </template>
 
 <script>
 const Appbar = () => import("@/components/Appbar");
+const Cards = () => import("@/components/Cards");
 
 export default {
-  name: "Home",
-
   components: {
     Appbar,
+    Cards,
   },
 };
 </script>
