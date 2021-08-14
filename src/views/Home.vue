@@ -3,7 +3,7 @@
     <Appbar />
     <div class="d-flex flex-row justify-space-between header pa-6 rounded-lg">
       <v-row>
-        <v-col cols="12" xs="12" sm="10">
+        <v-col cols="12" xs="12" sm="8" md="10">
           <v-text-field
             v-model="tags"
             prepend-inner-icon="mdi-magnify"
@@ -14,10 +14,8 @@
             class="rounded-lg"
           ></v-text-field>
         </v-col>
-        <v-col cols="12" xs="12" sm="2">
+        <v-col cols="12" xs="12" sm="4" md="2">
           <v-select
-            v-model="sortBy"
-            :items="itemSortBy"
             placeholder="Sort By"
             solo
             hide-details
@@ -42,8 +40,14 @@
       </v-row>
     </div>
     <div class="px-4 pt-6 background" style="min-height: 100vh">
-      <p class="mb-0 text-subtitle-2">{{ title }}</p>
-      <p class="mb-0 font-weight-bold">{{ modifiedDate }}</p>
+      <template v-if="loading">
+        <v-skeleton-loader max-width="150" type="text" />
+        <v-skeleton-loader max-width="200" type="text" />
+      </template>
+      <template v-else>
+        <p class="mb-0 text-subtitle-2">{{ title }}</p>
+        <p class="mb-0 font-weight-bold">{{ modifiedDate }}</p>
+      </template>
       <v-divider class="mt-2 mb-4" />
       <div
         class="d-flex flex-xs-column flex-sm-row justify-space-around flex-wrap"
@@ -95,6 +99,7 @@ export default {
   methods: {
     getList() {
       this.loading = true;
+      this.items = [];
       MainServer.getList({
         tags: this.tags,
       })
