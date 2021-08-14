@@ -70,6 +70,9 @@
         </ContentNotFound>
         <Cards v-else v-for="(e, i) in items" :key="i" :data="e" />
       </div>
+      <v-expand-transition>
+        <Loader v-if="loading && page > 1" :loading="loading" :size="48" />
+      </v-expand-transition>
     </div>
   </div>
 </template>
@@ -78,6 +81,7 @@
 const Appbar = () => import("@/components/Appbar");
 const Cards = () => import("@/components/Cards");
 const ContentNotFound = () => import("@/components/Content/NotFound");
+const Loader = () => import("@/components/Loader/Default");
 import MainService from "@/services/resources/feeds.service";
 
 export default {
@@ -85,6 +89,7 @@ export default {
     Appbar,
     Cards,
     ContentNotFound,
+    Loader,
   },
   data() {
     return {
@@ -106,16 +111,20 @@ export default {
         },
       ],
       sortBy: "ASC",
+
+      // Pagination Properties
+      page: 1,
+      pageStop: false,
     };
   },
   methods: {
-    getList() {
+    getList(type = "refresh") {
       this.loading = true;
-      this.items = [];
       this.createToken(MainService.cancelReq().source());
       MainService.getList(
         {
           tags: this.tags,
+          page: this.page,
           limit: 4,
         },
         { cancelToken: this.cancelRequest.token }
@@ -124,7 +133,17 @@ export default {
           if (message == "OK") {
             this.title = result.title;
             this.modifiedDate = result.modified;
-            this.items = [...result.items];
+            if (type == "refresh") {
+              this.items = [...result.items];
+            } else {
+              if (result.items == 0) {
+                this.pageStop = true;
+              } else {
+                this.items = [...this.items, ...result.items];
+              }
+            }
+          } else {
+            console.error(result);
           }
         })
         .catch((err) => {
@@ -135,9 +154,22 @@ export default {
     handleReload() {
       this.getList();
     },
+    handleScrollBottom() {
+      window.onscroll = () => {
+        let bottomOfWindow =
+          Math.round(document.documentElement.scrollTop + window.innerHeight) >=
+          document.documentElement.offsetHeight;
+
+        if (!this.pageStop && !this.loading && bottomOfWindow) {
+          this.page = this.page + 1;
+          this.fetchListDebounce(() => this.getList("push"));
+        }
+      };
+    },
   },
   mounted() {
     this.getList();
+    this.handleScrollBottom();
   },
   computed: {
     isAvailable() {
@@ -147,11 +179,13 @@ export default {
   watch: {
     tags: {
       handler(val) {
+        this.page = 1;
         val && val.length > 2 && this.fetchListDebounce(this.getList);
       },
     },
     sortBy: {
       handler(val) {
+        this.page = 1;
         val && this.getList();
       },
     },
