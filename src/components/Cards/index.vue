@@ -1,5 +1,5 @@
 <template>
-  <v-card :loading="loading" class="mx-auto my-6" max-width="374">
+  <v-card class="my-4" max-width="340" style="width: 100%">
     <v-img
       height="250"
       src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
@@ -14,11 +14,7 @@
     <v-divider class="mx-4"></v-divider>
     <v-card-text>
       <div>Tag's</div>
-      <v-chip-group
-        v-model="selection"
-        active-class="primary white--text"
-        column
-      >
+      <v-chip-group active-class="primary white--text" column>
         <v-chip small>5:30PM</v-chip>
 
         <v-chip small>7:30PM</v-chip>
