@@ -121,6 +121,8 @@ export default {
     getList(type = "refresh") {
       this.loading = true;
       this.createToken(MainService.cancelReq().source());
+      if (type == "refresh") this.items = [];
+
       MainService.getList(
         {
           tags: this.tags,

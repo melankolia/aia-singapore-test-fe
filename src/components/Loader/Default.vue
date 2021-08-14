@@ -21,14 +21,14 @@ export default {
     size: { type: Number, required: false, default: 64 },
     color: { type: String, required: false, default: "primary" },
     px: { type: Number, required: false, default: 10 },
-    py: { type: Number, required: false, default: 10 }
+    py: { type: Number, required: false, default: 10 },
   },
   computed: {
     loader() {
       const px = `px-${this.px}`;
       const py = `py-${this.py}`;
       return `text-center ${px} ${py}`;
-    }
-  }
+    },
+  },
 };
 </script>
