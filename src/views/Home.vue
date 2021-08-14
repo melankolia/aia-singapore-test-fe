@@ -41,18 +41,12 @@
         </v-col>
       </v-row>
     </div>
-    <div class="px-4 pt-6">
+    <div class="px-4 pt-6 background" style="min-height: 100vh">
       <p class="mb-0 text-subtitle-2">{{ title }}</p>
       <p class="mb-0 font-weight-bold">{{ modifiedDate }}</p>
       <v-divider class="mt-2 mb-4" />
       <div
-        class="
-          d-flex
-          flex-xs-column flex-sm-row
-          align-center
-          justify-space-around
-          flex-wrap
-        "
+        class="d-flex flex-xs-column flex-sm-row justify-space-around flex-wrap"
       >
         <ContentNotFound
           message="Feeds Not Found"
@@ -60,7 +54,12 @@
           v-if="!isAvailable"
         >
           <template v-slot:action>
-            <v-btn depressed color="header" class="rounded-lg outlined-custom">
+            <v-btn
+              @click="handleReload"
+              depressed
+              color="header"
+              class="rounded-lg outlined-custom"
+            >
               <v-icon class="mr-1" small>mdi-reload</v-icon>
               <p class="header-button-back ma-0">Reload</p>
             </v-btn>
@@ -111,11 +110,14 @@ export default {
         })
         .finally(() => (this.loading = false));
     },
+    handleReload() {
+      this.getList();
+    },
   },
   mounted() {
     this.getList();
   },
-  comouted: {
+  computed: {
     isAvailable() {
       return this.items.length > 0;
     },
