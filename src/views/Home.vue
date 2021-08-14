@@ -102,15 +102,15 @@ export default {
       // SortBy Properties
       itemsSortBy: [
         {
-          text: "ASC Author",
-          value: "ASC",
+          text: "ASC by Title",
+          value: "asc",
         },
         {
-          text: "DESC Author",
-          value: "DESC",
+          text: "DESC by Title",
+          value: "desc",
         },
       ],
-      sortBy: "ASC",
+      sortBy: "asc",
 
       // Pagination Properties
       page: 1,
@@ -128,6 +128,7 @@ export default {
           tags: this.tags,
           page: this.page,
           limit: 4,
+          sort: this.sortBy,
         },
         { cancelToken: this.cancelRequest.token }
       )
