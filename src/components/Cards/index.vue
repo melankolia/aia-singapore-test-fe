@@ -4,7 +4,9 @@
       <div v-html="data.description[0]"></div>
     </v-card-text>
     <div class="container-image">
-      <v-img height="250" :src="data.media.m" :alt="data.title" />
+      <a :href="data.link" target="_blank">
+        <v-img height="250" :src="data.media.m" :alt="data.title" />
+      </a>
       <p class="date-text date pa-2 ma-2 rounded-lg primary white--text">
         {{ data.published }}
       </p>
